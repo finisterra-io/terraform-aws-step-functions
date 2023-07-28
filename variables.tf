@@ -251,3 +251,28 @@ variable "policy_statements" {
   type        = any
   default     = {}
 }
+
+variable "tracing_configuration" {
+  description = "Tracing configuration settings for AWS X-Ray."
+  type        = map(string)
+  default     = {}
+}
+
+
+variable "assume_role_policy" {
+  description = "IAM role assume role policy"
+  type        = string
+  default     = null
+}
+
+variable "create_cloudwatch_log_group" {
+  description = "Controls whether to create CloudWatch Log Group"
+  type        = bool
+  default     = true
+}
+
+variable "policy_arns" {
+  description = "List of policy ARNs to attach to IAM role"
+  type        = list(string)
+  default     = []
+}
