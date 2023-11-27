@@ -33,7 +33,7 @@ resource "aws_sfn_state_machine" "this" {
   }
 
   dynamic "tracing_configuration" {
-    for_each = lenght(keys(var.tracing_configuration)) > 0 ? [1] : []
+    for_each = length(keys(var.tracing_configuration)) > 0 ? [1] : []
     content {
       enabled = var.tracing_configuration["enabled"]
     }
