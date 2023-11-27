@@ -32,8 +32,11 @@ resource "aws_sfn_state_machine" "this" {
     level                  = var.logging_configuration["level"]
   }
 
-  tracing_configuration {
-    enabled = var.tracing_configuration["enabled"]
+  dynamic "tracing_configuration" {
+    for_each = var.tracing_configuration != null && local.enable_xray_tracing ? [1] : []
+    content {
+      enabled = var.tracing_configuration["enabled"]
+    }
   }
 
   type = var.type
