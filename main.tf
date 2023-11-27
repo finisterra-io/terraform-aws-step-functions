@@ -26,10 +26,14 @@ resource "aws_sfn_state_machine" "this" {
   role_arn   = data.aws_iam_role.this[0].arn
   definition = var.definition
 
-  logging_configuration {
-    log_destination        = var.logging_configuration["log_destination"]
-    include_execution_data = var.logging_configuration["include_execution_data"]
-    level                  = var.logging_configuration["level"]
+  dynamic "logging_configuration" {
+    for_each = length(keys(var.logging_configuration)) > 0 ? [1] : []
+    content {
+      log_destination        = var.logging_configuration["log_destination"]
+      include_execution_data = var.logging_configuration["include_execution_data"]
+      level                  = var.logging_configuration["level"]
+
+    }
   }
 
   dynamic "tracing_configuration" {
